@@ -13,19 +13,24 @@ struct ContentView: View {
     @StateObject private var viewModel = ContentViewModel()
 
     
+
     var body: some View {
 
-        
-
-        
         NavigationView {
-            
-        
                 Form {
                     Section {
                         TextField("Amount", value: $viewModel.checkAmount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
                             .keyboardType(.decimalPad)
                             .focused($amountIsFocused)
+                            .toolbar {
+                                ToolbarItemGroup(placement: .keyboard) {
+                                    Spacer()
+                                    
+                                    Button("Done") {
+                                        amountIsFocused = false
+                                    }
+                                }
+                            }
 
                         Picker("Number of people", selection: $viewModel.numberOfPeople){
                             ForEach(2..<10){
@@ -43,25 +48,30 @@ struct ContentView: View {
                             }
                         }
                     Section(header: Text("Amount from person")) {
-                        Text(viewModel.totalPerPerson, format: .currency(code: Locale.current.currencyCode ?? "USD"))
+                        Text(viewModel.totalPerPerson, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
                     }
                     Section(header: Text("Amount without tip")){
-                        Text(viewModel.totalCheck, format: .currency(code: Locale.current.currencyCode ?? "USD"))
+                        Text(viewModel.totalCheck, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
                     }
                     Section(header: Text("Amount with tip, but no separate between people")){
-                        Text(viewModel.checkWithTipOnly, format: .currency(code: Locale.current.currencyCode ?? "USD"))
+                        Text(viewModel.checkWithTipOnly, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
                     }
 
                     
                 }
                 .navigationTitle("WeSplit")
+
+
+
         }
     }
 }
 
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+
         
     }
 }

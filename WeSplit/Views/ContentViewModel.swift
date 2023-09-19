@@ -38,4 +38,8 @@ final class ContentViewModel: ObservableObject{
         let wholeAmount = checkAmount + tipValue
         return wholeAmount
     }
+
+
+
+
 }
