@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    
     @FocusState private var amountIsFocused: Bool
     @State private var numberOfPeople = 2
     @State private var checkAmount = 0.0
